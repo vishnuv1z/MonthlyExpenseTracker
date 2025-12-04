@@ -24,15 +24,35 @@ CREATE DATABASE monthly_expense;
 USE monthly_expense;
 ```
 
-### Create the table:
+### Create table for user:
 ```sql
-CREATE TABLE expenses (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  date DATE NOT NULL,
-  category VARCHAR(100),
-  description VARCHAR(255),
-  amount DECIMAL(10,2) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE,
+    pass_word VARCHAR(50)
+);
+```
+
+### Create table for monthly income:
+```sql
+CREATE TABLE mon_income (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    inc_source VARCHAR(100),
+    amount DECIMAL(10,2),
+    date_of_income DATE,
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
+```
+
+### Create table for monthly expense:
+```sql
+CREATE TABLE mon_expenses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(100),
+    amount DECIMAL(10,2),
+    date_of_spent DATE,
+    FOREIGN KEY(user_id) REFERENCES users(id)
 );
 ```
 
